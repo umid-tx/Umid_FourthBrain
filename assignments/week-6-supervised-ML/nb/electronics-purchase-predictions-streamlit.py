@@ -40,6 +40,15 @@ with st.sidebar:
         (models)
     )
 
+    # Remove selected models 1 & 2 from model list
+    # App refreshes with every selection change.
+    models.remove(model2_select)
+    
+    model3_select = st.selectbox(
+        "Choose Model 3:",
+        (models)
+    )
+
 # Create tabs for separation of tasks
 tab1, tab2, tab3 = st.tabs(["🗃 Data", "🔎 Model Results", "🤓 Model Explainability"])
 
@@ -143,13 +152,25 @@ with tab2:
         st.plotly_chart(fig2, use_container_width=True)
 
 with tab3: 
-    # YOUR CODE GOES HERE!
-        # Use tab2 as a guide!  
-        # Use columns to separate visualizations for models
-        # Include a plot for local and global explanability!
-     
-    st.header(model1_select)
+    # Section Header
+    st.header("Model Explainability for Logistic Regression")
+
+    f = open('shapvalues.txt', 'r')
+    shap_values = f.read()
+
     
-    st.header(model2_select)
+    fig1 = px.bar(shap_values, x='values', y='values')
+    st.write(fig1)
+    
+    
+    
+   
+
+
+    #st.header(model1_select)
+    
+    #st.header(model2_select)
+
+    #st.header(model3_select)
 
     
