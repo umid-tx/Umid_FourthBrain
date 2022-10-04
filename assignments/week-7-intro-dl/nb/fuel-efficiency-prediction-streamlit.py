@@ -11,6 +11,8 @@ st.image(img_fuel, width=700)
 
 st.markdown("<h1 style='text-align: center; color: black;'>Fuel Efficiency</h1>", unsafe_allow_html=True)
 
+
+
 # Import train dataset to DataFrame
 train_df = pd.read_csv("../dat/train.csv.gz", compression="gzip")
 model_results_df = pd.read_csv("../dat/model_results.csv")
@@ -60,6 +62,7 @@ with tab1:
 with tab2:    
     
     # YOUR CODE GOES HERE!
+    st.header('Model Results')
 
     # Columns for side-by-side model comparison
     col1, col2 = st.columns(2)
@@ -69,6 +72,12 @@ with tab2:
         st.header(model1_select)
 
         # YOUR CODE GOES HERE!
+        if model1_select == 'DNN':
+            id_col1 = 1
+        else:
+            id_col1 = 2
+        MAE = model_results_df.at[id_col1, 'Mean Absolute Error MPG']
+        st.write(f'Mean Absolute Error for {str(model1_select)} is '+ str(round(MAE,2)))
 
 
     # Build confusion matrix for second model
@@ -76,15 +85,37 @@ with tab2:
         st.header(model2_select)
 
         # YOUR CODE GOES HERE!
+        if model2_select == 'TPOT':
+            id_col2 = 2
+        else:
+            id_col2 = 1
+        MAE = model_results_df.at[id_col2, 'Mean Absolute Error MPG']
+        st.write(f'Mean Absolute Error for {str(model2_select)} is '+ str(round(MAE,2)))
 
 
 with tab3: 
     # YOUR CODE GOES HERE!
         # Use columns to separate visualizations for models
         # Include plots for local and global explanability!
+
+
      
     st.header(model1_select)
+
+    if model1_select == 'DNN':
+        img = Image.open('../img/fig_dnn_model.png')
+        st.image(img, width=700)
+    else:
+        img = Image.open('../img/fig_tpot_model.png')
+        st.image(img, width=700)
     
     st.header(model2_select)
+
+    if model2_select == 'TPOT':
+        img = Image.open('../img/fig_tpot_model.png')
+        st.image(img, width=700)
+    else:
+        img = Image.open('../img/fig_dnn_model.png')
+        st.image(img, width=700)
 
     

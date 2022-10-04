@@ -1,0 +1,4 @@
+,model,Mean Absolute Error MPG
+0,linear_model,2.5323314666748047
+1,dnn_model,1.7670880556106567
+2,tpot_model,1.6843354700854711
